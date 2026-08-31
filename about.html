@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./assets/logo.jpeg">
+  <title>About — Elegant Promoter's Stationary Supply</title>
+  <meta name="description" content="Learn about Elegant Promoter's Stationary Supply: sourcing stationery with care, clear communication, and a wide range of office supplies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/about.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="./assets/logo.jpeg" alt="brand logo" height="50px" width="50px">
+      <span class="brand-text">
+        <span class="line1">Elegant Promoter's</span>
+        <span class="line2">Stationary Supply</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html#order" class="nav-cta">Place an Order</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== ABOUT HERO ===== -->
+<header class="about-hero">
+  <div class="wrap">
+    <div class="about-hero__content">
+      <span class="eyebrow">About Us</span>
+      <h1>Stationery, sourced with care</h1>
+      <p class="lead">We're a new business built around a simple idea: you shouldn't have to visit five stores to find what you need.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN CONTENT: two-column grid ===== -->
+<section class="about-main">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <h2>What we do</h2>
+      <p>Elegant Promoter's Stationary Supply helps individuals, schools, offices and small businesses find the stationery and office supplies they need. Instead of maintaining a large physical inventory, we work with a network of suppliers to source products based on what our customers actually ask for.</p>
+      <p>That means a wider range of what we can help you get, and less time spent guessing what's in stock.</p>
+
+      <h2>How we work</h2>
+      <p>When you tell us what you're looking for — through WhatsApp or our request form — we check availability and pricing with our suppliers, confirm the details with you, and arrange delivery once everything is agreed.</p>
+
+      <h2>What matters to us</h2>
+      <p>Clear communication, realistic timelines, and being upfront when something isn't available. We'd rather tell you honestly than overpromise.</p>
+    </div>
+
+    <div class="about-visual">
+      <img src="./assets/logo.jpeg" alt="Elegant Promoter's Stationary Supply logo">
+      <div class="about-visual__decor" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUR APPROACH (cards) ===== -->
+<section class="about-approach">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Our Approach</span>
+      <h2>Why we source rather than stock</h2>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-card">
+        <h3>Convenient</h3>
+        <p>Tell us what you need without visiting multiple stores.</p>
+      </div>
+      <div class="approach-card">
+        <h3>Flexible</h3>
+        <p>We can help source products beyond the best current offerings.</p>
+      </div>
+      <div class="approach-card">
+        <h3>Quality Focused</h3>
+        <p>We aim to source reliable products from trusted suppliers.</p>
+      </div>
+      <div class="approach-card">
+        <h3>Customer Focused</h3>
+        <p>We communicate with you before finalising any order.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div class="flourish" style="margin-bottom:22px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg>
+    </div>
+    <h2>Ready to place an order?</h2>
+    <p>Fill in the order form and we'll take it from there.</p>
+    <a href="contact.html#order" class="btn btn-gold">Start Your Order</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-text">
+          <span class="line1">Elegant Promoter's</span>
+          <span class="line2">Stationary Supply</span>
+        </span>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="index.html">Home</a>
+          <a href="products.html">Products</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get in touch</h4>
+          <p>[Add phone number]</p>
+          <p>[Add email address]</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; <span id="year"></span> Elegant Promoter's Stationary Supply. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
