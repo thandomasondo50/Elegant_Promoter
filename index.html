@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/shop.css">
 </head>
 <body>
 
@@ -23,11 +24,11 @@
     </a>
     
     <div class="nav-links">
-      <a href="index.html" class="active">Home</a>
-      <a href="products.html">Products</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="contact.html#order" class="nav-cta">Place an Order</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-link">Cart <span data-cart-count>0</span></a>
     </div>
     <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
       <span></span><span></span><span></span>
@@ -110,6 +111,20 @@
   </div>
 </section>
 
+<section class="section-cream">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" style="justify-content:center">Featured Products</p>
+      <h2>Popular right now</h2>
+      <p>A selection of our most-ordered items — browse the full catalogue for the complete range.</p>
+    </div>
+    <div class="product-grid" id="featured-grid"></div>
+    <div style="text-align:center;margin-top:50px;">
+      <a href="products.html" class="btn btn-navy">View Full Catalogue</a>
+    </div>
+  </div>
+</section>
+
 <section class="cta-band">
   <div class="wrap">
     <div class="flourish" style="margin-bottom:22px">
@@ -120,6 +135,7 @@
     <a href="contact.html#order" class="btn btn-gold">Start Your Order</a>
   </div>
 </section>
+
 
 <footer>
   <div class="wrap">
@@ -147,6 +163,40 @@
     <div class="footer-bottom">&copy; <span id="year"></span> Elegant Promoter's Stationary Supply. All rights reserved.</div>
   </div>
 </footer>
+<script src="./js/products.js"></script>
+<script src="./js/cart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('featured-grid');
+  if (!grid) return;
+  const featured = PRODUCTS.filter(p => p.tags?.includes('popular')).slice(0, 8);
+  grid.innerHTML = featured.map(p => `
+    <article class="product-card">
+      <a href="product.html?id=${p.id}" class="product-card__media">
+        <span class="product-card__badge">Popular</span>
+        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
+      </a>
+      <div class="product-card__body">
+        <span class="product-card__cat">${p.category}</span>
+        <h3 class="product-card__name"><a href="product.html?id=${p.id}">${p.name}</a></h3>
+        <div class="product-card__price">${formatPrice(p.price)}</div>
+        <div class="product-card__actions">
+          <button class="btn btn-navy" onclick="Cart.add('${p.id}',1);showToast('Added to cart');this.textContent='Added ✓';setTimeout(()=>this.textContent='Add to Cart',1200);">Add to Cart</button>
+          <a href="product.html?id=${p.id}" class="btn btn-ghost">View</a>
+        </div>
+      </div>
+    </article>
+  `).join('');
+});
+function showToast(msg) {
+  let t = document.querySelector('.toast');
+  if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
+  t.textContent = msg;
+  requestAnimationFrame(() => t.classList.add('show'));
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+</script>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>

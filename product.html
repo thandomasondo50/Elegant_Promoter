@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/logo.jpeg">
+<title>Product — Elegant Promoter's Stationary Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/shop.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="./assets/logo.jpeg" alt="brand logo" height="50" width="50">
+      <span class="brand-text">
+        <span class="line1">Elegant Promoter's</span>
+        <span class="line2">Stationary Supply</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" class="cart-link">Cart <span data-cart-count>0</span></a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="wrap breadcrumbs">
+  <a href="index.html">Home</a><span>/</span>
+  <a href="products.html">Shop</a><span>/</span>
+  <span id="bc-name">Product</span>
+</div>
+
+<section class="section-cream" style="padding-top:40px;">
+  <div class="wrap">
+    <div class="product-detail" id="product-detail"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom" style="padding-top:0;text-align:center;">
+      &copy; <span id="year"></span> Elegant Promoter's Stationary Supply.
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="./js/products.js"></script>
+<script src="./js/cart.js"></script>
+<script src="./js/product.js"></script>
+</body>
+</html>

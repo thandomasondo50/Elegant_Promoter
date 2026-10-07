@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/logo.jpeg">
+<title>Order Confirmed — Elegant Promoter's Stationary Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/shop.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="./assets/logo.jpeg" alt="brand logo" height="50" width="50">
+      <span class="brand-text">
+        <span class="line1">Elegant Promoter's</span>
+        <span class="line2">Stationary Supply</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" class="cart-link">Cart <span data-cart-count>0</span></a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="section-cream" style="padding:80px 0;">
+  <div class="wrap">
+    <div class="confirm-box">
+      <div class="check">✓</div>
+      <h1>Thank you for your order</h1>
+      <p>We've received your request and will be in touch within one working day to confirm pricing, availability and delivery.</p>
+      <div class="ref" id="order-ref">Order #EP-XXXXXXXX</div>
+      <div id="order-details" style="text-align:left;background:var(--cream-dim);padding:22px;margin-bottom:30px;font-size:0.9rem;color:var(--ink-soft);line-height:1.7;"></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="products.html" class="btn btn-navy">Continue Shopping</a>
+        <a href="contact.html" class="btn btn-ghost">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom" style="padding-top:0;text-align:center;">
+      &copy; <span id="year"></span> Elegant Promoter's Stationary Supply.
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+try {
+  const data = JSON.parse(sessionStorage.getItem('ep_last_order') || 'null');
+  if (data) {
+    document.getElementById('order-ref').textContent = 'Order #' + data.ref;
+    document.getElementById('order-details').innerHTML = `
+      <div><strong>Name:</strong> ${data.name || '—'}</div>
+      <div><strong>Email:</strong> ${data.email || '—'}</div>
+      <div style="margin-top:10px"><strong>Items:</strong><br>${(data.items || '').split('; ').join('<br>')}</div>
+      <div style="margin-top:10px;font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy)"><strong>Total:</strong> ${data.total}</div>
+    `;
+  }
+} catch(e) {}
+</script>
+<script src="./js/products.js"></script>
+<script src="./js/cart.js"></script>
+</body>
+</html>

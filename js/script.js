@@ -100,3 +100,23 @@ function removeItemRow(btn) {
     row.querySelector('.item-qty').value = '';
   }
 }
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Orders');
+  const p = e.parameter;
+  sheet.appendRow([
+    new Date(),
+    p.orderRef || '',
+    p.name || '',
+    p.phone || '',
+    p.email || '',
+    p.fulfilment || '',
+    p.address || '',
+    p.suburb || '',
+    p.postal || '',
+    p.items || '',
+    p.orderTotal || '',
+    p.notes || ''
+  ]);
+  return ContentService.createTextOutput('OK');
+}

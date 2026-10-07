@@ -10,6 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/about.css">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/shop.css">
+  
 </head>
 <body>
 
@@ -22,12 +24,13 @@
         <span class="line2">Stationary Supply</span>
       </span>
     </a>
+    
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="about.html" class="active">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="contact.html#order" class="nav-cta">Place an Order</a>
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="cart-link">Cart <span data-cart-count>0</span></a>
     </div>
     <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
       <span></span><span></span><span></span>
@@ -136,6 +139,8 @@
   </div>
 </footer>
 
+<script src="./js/products.js"></script>
+<script src="./js/cart.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
