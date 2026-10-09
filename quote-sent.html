@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/logo.jpeg">
+<title>Quote sent — Elegant Promoter's Stationery Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/shop.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="./assets/logo.jpeg" alt="brand logo" height="50" width="50">
+      <span class="brand-text">
+        <span class="line1">Elegant Promoter's</span>
+        <span class="line2">Stationery Supply</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" class="cart-link">Quote <span data-cart-count>0</span></a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="section-cream" style="padding:80px 0;">
+  <div class="wrap">
+    <div class="confirm-box" id="sent-box">
+      <div class="check">✓</div>
+      <h1 id="sent-title">Your quote is on its way</h1>
+      <p id="sent-lead">We've emailed your quote. It usually arrives within a minute.</p>
+      <div class="ref" id="sent-ref"></div>
+      <div class="confirm-meta" id="sent-meta" hidden></div>
+
+      <h2 class="section-title">What to do next</h2>
+      <ol class="next-steps">
+        <li><strong>Check your inbox.</strong> Open the email and look over the items and totals. If you can't see it, check spam or promotions.</li>
+        <li><strong>Accept or ask for changes.</strong> Reply to the email, or tap the accept button inside it. Tell us your delivery address or when you'll collect.</li>
+        <li><strong>We confirm stock.</strong> We check availability and delivery with our suppliers, usually within one working day.</li>
+        <li><strong>Pay and receive.</strong> We send payment details once everything is confirmed. After payment, we deliver or set your order aside for collection.</li>
+      </ol>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="btn btn-gold" id="sent-wa" hidden>Message us on WhatsApp</a>
+        <a href="products.html" class="btn btn-navy">Keep shopping</a>
+        <a href="contact.html" class="btn btn-ghost">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom" style="padding-top:0;text-align:center;">
+      &copy; <span id="year"></span> Elegant Promoter's Stationery Supply.
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="./js/products.js"></script>
+<script src="./js/cart.js"></script>
+<script>
+(function () {
+  let q = null;
+  try { q = JSON.parse(sessionStorage.getItem('ep_last_quote') || 'null'); } catch (e) {}
+
+  if (!q) {  // opened directly, nothing to show
+    document.getElementById('sent-title').textContent = 'Looking for your quote?';
+    document.getElementById('sent-lead').textContent = 'Quotes are sent by email as soon as you request one. You can build a new one from the shop.';
+    document.querySelector('.check').style.display = 'none';
+  } else {
+    document.getElementById('sent-ref').textContent = 'Quote ' + q.ref;
+    const lead = document.getElementById('sent-lead');
+    if (q.emailSent) {
+      lead.textContent = "We've emailed quote " + q.ref + ' to ' + q.email + '. It usually arrives within a minute.';
+    } else {
+      document.getElementById('sent-title').textContent = 'We have your quote request';
+      lead.textContent = "We couldn't email the quote to " + q.email + ", but your request reached us. We'll send it to you directly.";
+    }
+    const meta = document.getElementById('sent-meta');
+    const parts = [];
+    if (q.total) parts.push('<div>Estimated total<b></b></div>');
+    if (q.validUntil) parts.push('<div>Valid until<b></b></div>');
+    if (parts.length) {
+      meta.innerHTML = parts.join('');
+      const vals = meta.querySelectorAll('b');
+      let i = 0;
+      if (q.total) vals[i++].textContent = q.total;
+      if (q.validUntil) vals[i++].textContent = q.validUntil;
+      meta.hidden = false;
+    }
+  }
+
+  function wa() {
+    const a = document.getElementById('sent-wa');
+    if (!SITE.whatsapp) { a.hidden = true; return; }
+    const text = q ? 'Hi, I just requested quote ' + q.ref + '.' : 'Hi, I would like a quote.';
+    a.href = 'https://wa.me/' + waNumber(SITE.whatsapp) + '?text=' + encodeURIComponent(text);
+    a.target = '_blank'; a.rel = 'noopener';
+    a.hidden = false;
+  }
+  Catalogue.ready.then(wa);
+  document.addEventListener('catalogue:updated', wa);
+})();
+</script>
+</body>
+</html>

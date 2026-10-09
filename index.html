@@ -28,7 +28,7 @@
         <a href="products.html">Shop</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <a href="cart.html" class="cart-link">Cart <span data-cart-count>0</span></a>
+        <a href="cart.html" class="cart-link">Quote <span data-cart-count>0</span></a>
     </div>
     <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
       <span></span><span></span><span></span>
@@ -45,8 +45,8 @@
     <h1>Everything you need.<br><em>Quality</em> you can trust.</h1>
     <p class="lead">From a single ream of paper to a full office fit-out — pens, notebooks, files, printing consumables and every desk essential, sourced and supplied with care.</p>
     <div class="hero-actions">
-      <a href="products.html" class="btn btn-gold">Browse Products</a>
-      <a href="contact.html#order" class="btn btn-outline">Place an Order</a>
+      <a href="products.html" class="btn btn-gold">Build your quote</a>
+      <a href="contact.html" class="btn btn-outline">Contact us</a>
     </div>
   </div>
 </header>
@@ -78,8 +78,8 @@
       </div>
       <div class="value-card">
         <span class="num">III.</span>
-        <h3>Simple Ordering</h3>
-        <p>Fill in one form with what you need — your order lands straight with us, no back-and-forth required.</p>
+        <h3>Quote by Email</h3>
+        <p>Pick your items and an itemised quote lands in your inbox within a minute — no waiting to find out the price.</p>
       </div>
     </div>
   </div>
@@ -108,18 +108,18 @@
     <div class="services-list" style="border-color:rgba(198,161,91,0.2)">
       <div class="service-row" style="border-color:rgba(198,161,91,0.2)">
         <span class="tag">01</span>
-        <h3>Tell us what you need</h3>
-        <p>Use the order form to list items, quantities and any specifics — brand, colour, or size.</p>
+        <h3>Pick your items</h3>
+        <p>Browse the shop and add what you need to your quote, in any quantity.</p>
       </div>
       <div class="service-row" style="border-color:rgba(198,161,91,0.2)">
         <span class="tag">02</span>
-        <h3>We confirm &amp; quote</h3>
-        <p>We check stock, confirm pricing, and get back to you within one working day.</p>
+        <h3>Get your quote by email</h3>
+        <p>Enter your details and we email the quote straight away. We confirm stock and delivery within one working day.</p>
       </div>
       <div class="service-row" style="border-color:rgba(198,161,91,0.2)">
         <span class="tag">03</span>
-        <h3>Delivered or ready for collection</h3>
-        <p>Once confirmed, your order is packed and either delivered or set aside for pickup.</p>
+        <h3>Accept, pay and receive</h3>
+        <p>Reply to accept, pay by EFT or payment link, and we deliver or set your order aside for collection.</p>
       </div>
     </div>
   </div>
@@ -130,9 +130,9 @@
     <div class="flourish" style="margin-bottom:22px">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg>
     </div>
-    <h2>Ready to place an order?</h2>
-    <p>Fill in the order form and we'll take it from there.</p>
-    <a href="contact.html#order" class="btn btn-gold">Start Your Order</a>
+    <h2>Ready for your quote?</h2>
+    <p>Pick your items and we'll email your quote in under a minute.</p>
+    <a href="products.html" class="btn btn-gold">Build your quote</a>
   </div>
 </section>
 
@@ -150,13 +150,15 @@
         <div class="footer-col">
           <h4>Site</h4>
           <a href="index.html">Home</a>
-          <a href="products.html">Products</a>
+          <a href="products.html">Shop</a>
+          <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
           <h4>Get in touch</h4>
-          <p>[Add phone number]</p>
-          <p>[Add email address]</p>
+          <p><span data-site="phone"></span></p>
+          <p><a data-site="public_email"></a></p>
+          <p><a data-site="whatsapp"></a></p>
         </div>
       </div>
     </div>
@@ -169,35 +171,36 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('featured-grid');
   if (!grid) return;
-  const featured = PRODUCTS.filter(p => p.tags?.includes('popular')).slice(0, 8);
-  grid.innerHTML = featured.map(p => `
-    <article class="product-card">
-      <a href="product.html?id=${p.id}" class="product-card__media">
-        <span class="product-card__badge">Popular</span>
-        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
-      </a>
-      <div class="product-card__body">
-        <span class="product-card__cat">${p.category}</span>
-        <h3 class="product-card__name"><a href="product.html?id=${p.id}">${p.name}</a></h3>
-        <div class="product-card__price">${formatPrice(p.price)}</div>
-        <div class="product-card__actions">
-          <button class="btn btn-navy" onclick="Cart.add('${p.id}',1);showToast('Added to cart');this.textContent='Added ✓';setTimeout(()=>this.textContent='Add to Cart',1200);">Add to Cart</button>
-          <a href="product.html?id=${p.id}" class="btn btn-ghost">View</a>
+  function render() {
+    let featured = PRODUCTS.filter(p => p.tags.includes('popular') && !isOut(p)).slice(0, 8);
+    if (!featured.length) featured = PRODUCTS.filter(p => !isOut(p)).slice(0, 8);
+    grid.innerHTML = featured.map(p => `
+      <article class="product-card">
+        <a href="product.html?id=${encodeURIComponent(p.id)}" class="product-card__media">
+          <span class="product-card__badge">Popular</span>
+          <img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none'">
+        </a>
+        <div class="product-card__body">
+          <span class="product-card__cat">${esc(p.category)}</span>
+          <h3 class="product-card__name"><a href="product.html?id=${encodeURIComponent(p.id)}">${esc(p.name)}</a></h3>
+          <div class="product-card__price">${formatPrice(p.price)}</div>
+          <div class="product-card__actions">
+            <button type="button" class="btn btn-navy" data-add="${esc(p.id)}">Add to quote</button>
+            <a href="product.html?id=${encodeURIComponent(p.id)}" class="btn btn-ghost">View</a>
+          </div>
         </div>
-      </div>
-    </article>
-  `).join('');
+      </article>`).join('');
+  }
+  grid.addEventListener('click', e => {
+    const btn = e.target.closest('[data-add]');
+    if (!btn || !Cart.add(btn.dataset.add, 1)) return;
+    btn.textContent = 'Added ✓'; btn.disabled = true;
+    setTimeout(() => { btn.textContent = 'Add to quote'; btn.disabled = false; }, 1200);
+    showToast('Added to your quote', 'cart.html', 'View quote');
+  });
+  Catalogue.ready.then(() => { render(); document.addEventListener('catalogue:updated', render); });
 });
-function showToast(msg) {
-  let t = document.querySelector('.toast');
-  if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
-  t.textContent = msg;
-  requestAnimationFrame(() => t.classList.add('show'));
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove('show'), 2400);
-}
 </script>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-28YF3R8KFL"></script>
 <script>
